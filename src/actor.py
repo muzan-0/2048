@@ -61,6 +61,13 @@ class Game:
     self.leftCheck = self.checkLeft()
     self.rightCheck = self.checkRight()
     
+    if self.upCheck or self.downCheck or self.leftCheck or self.rightCheck:
+      pass
+      
+    else:
+      raise breakLoop
+      
+    
 
   def up(self):
     for i in range(3):
@@ -142,23 +149,46 @@ class Game:
 
   def checkUp(self):
     try:
-      for line in range(len(self.grid) - 1, 0, -1): # Loops through every line in the grid from the bottom to the top
+      for line in range(len(self.grid) - 1, 0, -1): # Loops through every line in the grid from the bottom to the top except for the very top
         for cell in range(len(self.grid[line])): # Loops through every cell in the line
           if self[(cell, line)] == 0:
             continue 
-          if self[(cell, line)] == self[(cell, line - 1)] or self[(cell, line - 1)] == 0: # Checks if the cell is equal to to one below it
+          if self[(cell, line)] == self[(cell, line - 1)] or self[(cell, line - 1)] == 0: # Checks if the cell is equal to to one above it
             raise breakLoop 
 
       return False
       
     except breakLoop:
-      pass
+      return True
 
   def checkDown(self):
-    return True 
+    try:
+      for line in range(len(self.grid) - 1): # Loops through every line in the grid from the top to the bottom except for the very bottom
+        for cell in range(len(self.grid[line])): # Loops through every cell in the line
+          if self[(cell, line)] == 0:
+            continue 
+          if self[(cell, line)] == self[(cell, line + 1)] or self[(cell, line + 1)] == 0: # Checks if the cell is equal to to one below it
+            raise breakLoop 
+
+      return False
+      
+    except breakLoop:
+      return True
 
   def checkLeft(self):
-    return True
+    try:
+      for line in range(len(self.grid)): # Loops through every line in the grid from the top to the bottom
+        for cell in range(len(self.grid[line]) - 1, 0, -1): # Loops through every cell in the line except for the far left
+          if self[(cell, line)] == 0:
+            continue 
+          if self[(cell, line)] == self[(cell - 1, line)] or self[(cell - 1, line)] == 0: # Checks if the cell is equal to to one below it
+            raise breakLoop 
+
+      return False
+      
+    except breakLoop:
+      return True
+
 
   def checkRight(self):
     return True
