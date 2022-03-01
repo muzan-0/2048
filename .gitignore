@@ -2,4 +2,6 @@
 *.sh
 *.replit
 
-/venv
+/venv/
+
+**/__pycache__/
