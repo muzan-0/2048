@@ -177,8 +177,8 @@ class Game:
 
   def checkLeft(self):
     try:
-      for line in range(len(self.grid)): # Loops through every line in the grid from the top to the bottom
-        for cell in range(len(self.grid[line]) - 1, 0, -1): # Loops through every cell in the line except for the far left
+      for line in range(len(self.grid)): # Loops through every line in the grid 
+        for cell in range(len(self.grid[line]) - 1, 0, -1): # Loops through every cell in the line from right to left except for the far left
           if self[(cell, line)] == 0:
             continue 
           if self[(cell, line)] == self[(cell - 1, line)] or self[(cell - 1, line)] == 0: # Checks if the cell is equal to to one below it
@@ -191,4 +191,15 @@ class Game:
 
 
   def checkRight(self):
-    return True
+    try:
+      for line in range(len(self.grid)): # Loops through every line in the grid 
+        for cell in range(len(self.grid[line]) - 1): # Loops through every cell in the line from left to right except for the far right
+          if self[(cell, line)] == 0:
+            continue 
+          if self[(cell, line)] == self[(cell + 1, line)] or self[(cell + 1, line)] == 0: # Checks if the cell is equal to to one below it
+            raise breakLoop 
+
+      return False
+      
+    except breakLoop:
+      return True
