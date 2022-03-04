@@ -4,5 +4,5 @@
 *.exe
 
 **/env/
-
+**/pyinstaller-stuff/
 **/__pycache__/
